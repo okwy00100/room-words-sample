@@ -28,9 +28,15 @@ public class WordViewModel extends AndroidViewModel {
         return mAllWords;
     }
 
+    /**
+     * Queries
+     **/
+
     public void insert(Word word){
         mWordRepository.insert(word);
     }
+
+    public void deleteAll(){mWordRepository.deleteAll();}
 
 
 }

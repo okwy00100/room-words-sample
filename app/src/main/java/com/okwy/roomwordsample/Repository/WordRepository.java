@@ -1,6 +1,7 @@
 package com.okwy.roomwordsample.Repository;
 
 import android.app.Application;
+import android.app.AsyncNotedAppOp;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
@@ -25,10 +26,24 @@ public class WordRepository {
         return mAllWords;
     }
 
+    /**
+     * Queries
+     **/
+
     public void insert(Word word) {
         new insertAsyncTask(mWordDao).execute(word);
     }
 
+    public void deleteAll(){
+        new deleteAllWordsAsyncTask(mWordDao).execute();
+    }
+
+
+
+    /**
+     * Query Async Tasks
+     **/
+    //insert Async Task
     public static class insertAsyncTask extends AsyncTask<Word, Void, Void> {
 
         private WordDao asyncWordDao;
@@ -40,6 +55,22 @@ public class WordRepository {
         @Override
         protected Void doInBackground(final Word... words) {
             asyncWordDao.insert(words[0]);
+            return null;
+        }
+    }
+
+    //delete All Async Task
+    public static class deleteAllWordsAsyncTask extends AsyncTask<Void, Void, Void>{
+
+        private WordDao asyncWordDao;
+
+        public deleteAllWordsAsyncTask(WordDao asyncWordDao) {
+            this.asyncWordDao = asyncWordDao;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            asyncWordDao.deleteAll();
             return null;
         }
     }

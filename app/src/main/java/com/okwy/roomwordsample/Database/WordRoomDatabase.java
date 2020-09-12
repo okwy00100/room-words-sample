@@ -43,11 +43,15 @@ public abstract class WordRoomDatabase extends RoomDatabase {
             // when it is first created
             dao.deleteAll();
 
-            for (int i = 0; i < words.length; i++) {
-                Word word = new Word(words[i]);
-                dao.insert(word);
+            // If no words exist, then (and only then) create the initial list of words
+            if (dao.getAnyWord().length < 1) {
+                for (int i = 0; i < words.length; i++) {
+                    Word word = new Word(words[i]);
+                    dao.insert(word);
+                }
             }
-            return null;
+                return null;
+
         }
 
     }
