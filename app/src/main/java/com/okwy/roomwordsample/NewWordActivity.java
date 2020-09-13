@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import static com.okwy.roomwordsample.MainActivity.NEW_WORD_ACTIVITY_REQUEST_CODE;
+
 public class NewWordActivity extends AppCompatActivity {
 
     public static final String EXTRA_REPLY = "com.okwy.roomwordsample.REPLY";
@@ -30,6 +32,8 @@ public class NewWordActivity extends AppCompatActivity {
                 InputMethodManager inputManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
                 inputManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 sendResult();
+//                startActivity(new Intent(NewWordActivity.this, MainActivity.class));
+//                finish();
             }
         });
 
@@ -44,7 +48,7 @@ public class NewWordActivity extends AppCompatActivity {
             replyIntent.putExtra(EXTRA_REPLY, word);
             setResult(RESULT_OK, replyIntent);
             Toast.makeText(getApplicationContext(), "Saved Successfully", Toast.LENGTH_LONG).show();
-            mEditWordView.getText().clear();
+            //startActivityForResult(replyIntent, RESULT_OK);
         }
     }
 }
